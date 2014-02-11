@@ -16,5 +16,4 @@ class Front_Controller extends Base_Controller
         $this->load->library('alert');
         $this->data['alerts'] = Alert::getAlerts();
 	}
-
 }
