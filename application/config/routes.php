@@ -38,20 +38,15 @@
 |
 */
 
-$route['default_controller'] = "front/index_front/home";
+$route['default_controller'] = "front/index_front/data";
 $route['404_override'] = '';
 
-/** Admin routes **/
-$route['admin'] = "admin/index_back/home";
-$route['admin/([a-z\_]+)'] = "admin/$1_back/index";
-$route['admin/([a-z\_]+)/(:any)'] = "admin/$1_back/$2";
-
 /** Front routes **/
-$route['home'] = "front/index_front/home";
-$route['season'] = "front/index_front/season";
-$route['forecast'] = "front/forecast_front/view";
-$route['forecast/(:any)'] = "front/forecast_front/$1";
-$route['([a-z\_]+)/(:any)'] = "front/$1_front/$2";
+$route['data'] = "front/index_front/data";
+$route['process'] = "front/index_front/process";
+$route['results'] = "front/index_front/results";
+
+$route['auth/(:any)'] = "front/auth_front/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

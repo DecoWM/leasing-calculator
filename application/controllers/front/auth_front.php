@@ -15,7 +15,7 @@ class Auth_front extends Base_Controller
         {
             $this->form_validation->set_rules('username','Username','required|callback_check_username');
             $this->form_validation->set_rules('password','Password','required|callback_check_password');
-
+            
             if($this->form_validation->run())
             {
                 Context::logIn();
@@ -27,9 +27,9 @@ class Auth_front extends Base_Controller
         $this->data['alerts'] = Alert::getAlerts();
 
         $this->data['logout'] = true;
-        $this->load->view('front/common/header_view',$this->data);
+        $this->load->view('front/common/header',$this->data);
         $this->load->view('front/login_form',$this->data);
-        $this->load->view('front/common/footer_view',$this->data);
+        $this->load->view('front/common/footer',$this->data);
     }
     
     function logout()

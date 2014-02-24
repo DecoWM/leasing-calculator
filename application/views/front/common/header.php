@@ -20,14 +20,13 @@
 
     <div class="masthead">
         <div class="row-fluid">
-            <h3 class="muted span4"><a href="<?php echo $base_url ?>admin">Desafio Laboral Admin</a></h3>
+            <h3 class="muted span4"><a href="<?php echo base_url() ?>">Leasing Calculator</a></h3>
             <div class="span4 offset4" style="text-align: right; margin-top: 15px">
-                <a class="btn" target="_blank" href="<?php echo $base_url ?>">Desafio Laboral</a>
                 <?php if(!isset($logout)): ?>
-                <a class="btn btn-danger" href="<?php echo base_url('admin/auth/logout') ?>">Salir</a>
+                <a class="btn btn-danger" href="<?php echo base_url('auth/logout') ?>">Salir</a>
                 <?php endif; ?>
             </div>
         </div>
-        <?php $this->load->view('admin/common/nav_bar') ?>
-        <?php $this->load->view('admin/common/alerts_view') ?>
+        <?php $this->load->view('front/common/navbar') ?>
+        <?php $this->load->view('front/common/alerts') ?>
     </div>

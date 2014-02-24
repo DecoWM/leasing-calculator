@@ -2,120 +2,89 @@
 
 class Index_front extends Front_Controller 
 {
-	public function home()
+	public function data()
 	{
-		if(Context::isLoggedIn())
-		{
-			$this->load->model('ranking_model');
-			$user_score = $this->ranking_model->get_entry(1, Context::getUserId());
-			$this->data['total_score'] = $user_score->getTotalScore();
-		}
-		
-		$this->load->model('message_model');
-		$message = array_pop($this->message_model->list_entries());
-		$this->data['message'] = $message->getMessage();
+		$this->data['active'] = 'data';
 
-		$this->data['controller'] = 'home';
-		$this->load->view('front/common/header_view', $this->data);
-		$this->load->view('front/home_view', $this->data);
-		$this->load->view('front/common/footer_view', $this->data);
+		$this->load->view('front/common/header', $this->data);
+		$this->load->view('front/data_form', $this->data);
+		$this->load->view('front/common/footer', $this->data);
 	}
 
-	public function season()
+	public function process()
 	{
-		$this->load->model('game_model');
+		$this->load->library('financial');
 
-		$this->data['game'] = array(
-			'quarter' => $this->game_model->get_games(1, 'quarter', array('teams')),
-			'semifinal' => $this->game_model->get_games(1, 'semifinal', array('teams')),
-			'final' => $this->game_model->get_games(1, 'final', array('teams')),
-		);
+		//$this->form_validation->set_rules('username','Username','required');
+        //$this->form_validation->set_rules('password','Password','required');
 
-		//die(print_r($this->data['game']));
-		
-		/*$this->load->model('award_model');
+		if($this->form_validation->run())
+        {
+        	$costesNotariales = $this->input->post('costesNotariales');
+        	$costesRegistrales = $this->input->post('costesRegistrales');
+        	$tasacion = $this->input->post('tasacion');
+        	$comisionEstudio = $this->input->post('comisionEstudio');
+        	$comisionActivacion = $this->input->post('comisionActivacion');
 
-		$this->data['award'] = array(
-			'mvp' => $this->award_model->get_mvp(1),
-			'max_scorer' => $this->award_model->get_max_scorer(1),
-			'max_rebounder' => $this->award_model->get_max_rebounder(1),
-			'max_asistant' => $this->award_model->get_max_asistant(1)
-		);*/
-		
-		$this->load->model('quiz_model');
+        	$tasaSeguroRiesgo = $this->input->post('tasaSeguroRiesgo');
+        	$comisionPeriodica = $this->input->post('comisionPeriodica');
 
-		$quizzes = array();
-		for($i = 1; $i <= 8; $i++)
-		{
-			//Get quiz by position
-			$quiz = $this->quiz_model->get_quiz(1, $this->id_user, $i);
-			
-			if($quiz != NULL)
-			{
-				/*if(Context::isSeasonOpen())
-				{*/
-					$quizzes[] = array(
-						'score' => $quiz->getScore(),
-						'state' => $quiz->getState()
-					);
-				/*}
-				else
-				{
-					$quizzes[] = array(
-						'score' => $quiz->getScore(),
-						'state' => 'disabled'
-					);
-				}*/	
-			}
-			else
-			{
-				if(Context::isSeasonOpen())
-				{
-					$quizzes[] = array(
-						'score' => 0,
-						'state' => 'unanswered',
-						'url' => base_url('quiz/generate/'.$i)
-					);
-				}
-				else
-				{
-					$quizzes[] = array(
-						'score' => 0,
-						'state' => 'disabled'
-					);
-				}
-			}
-		}
+			$gastosIniciales = Application::getInitialTotal(
+				$costesNotariales, 
+				$costesRegistrales, 
+				$tasacion,
+				$comisionEstudio,
+				$comisionActivacion
+			);
 
-		$this->data['quizzes'] = $quizzes;
+			$gastosPeriodicos = Application::getPeriodicTotal(
+				$comisionPeriodica, 
+				$tasaSeguroRiesgo, 
+				$precioVenta, 
+				$frecuenciaPago
+			);
 
-		$this->load->model('ranking_model');
-		$user_score = $this->ranking_model->get_entry(1, $this->id_user);
-		$ranking = $this->ranking_model->get_ranking(1, array('user'));
+			$precioVenta = $this->input->post('precioVenta');
+			$periodoTotal = $this->input->post('periodoTotal'); 
+			$frecuenciaPago = $this->input->post('frecuenciaPago'); 
+			$tasaEfectivaAnual = $this->input->post('tasaEfectivaAnual'); 
+			$tasaIGV = $this->input->post('tasaIGV'); 
+			$tasaImpuestoRenta = $this->input->post('tasaImpuestoRenta'); 
+			$tasaRecompra = $this->input->post('tasaRecompra'); 
+			$tasaCOK = $this->input->post('tasaCOK'); 
+			$tasaWACC = $this->input->post('tasaWACC');
 
-		$position = 0;
-		if(!empty($ranking))
-		{
-			foreach($ranking as $pos => $rank)
-			{
-				if($this->id_user == $rank->getIdUser())
-				{
-					$position = $pos + 1;
-					continue;
-				}
-			}
-		}
-		
-		$this->data['forecast_score'] = $user_score->getForecastTeamScore() + $user_score->getForecastPlayerScore();
-		$this->data['quiz_score'] = $user_score->getQuizScore();
-		$this->data['ranking'] = $ranking;
-		$this->data['total_score'] = $user_score->getTotalScore();
-		$this->data['position'] = $position;
-		$this->data['already_liked'] = ($user_score->getFacebookPoints() > 0) ? true : false;
+			$leasing = Application::calculateLeasing(
+				$precioVenta,
+				$periodoTotal,
+				$frecuenciaPago,
+				$tasaEfectivaAnual,
+				$tasaIGV,
+				$tasaImpuestoRenta,
+				$tasaRecompra,
+				$gastosIniciales,
+				$gastosPeriodicos,
+				$tasaCOK,
+				$tasaWACC
+			);
 
-		$this->data['controller'] = 'season';
-		$this->load->view('front/common/header_view', $this->data);
-		$this->load->view('front/season_view', $this->data);
-		$this->load->view('front/common/footer_view', $this->data);
+			Context::setLeasing($leasing);
+			redirect(base_url('results'));
+        }
+        else
+        {
+        	$this->data();
+        }
+	}
+
+	public function results()
+	{
+		$this->data['active'] = 'results';
+
+		$leasing = Context::getLeasing();
+
+		$this->load->view('front/common/header', $this->data);
+		$this->load->view('front/results', $leasing);
+		$this->load->view('front/common/footer', $this->data);
 	}
 }

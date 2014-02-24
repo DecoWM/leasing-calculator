@@ -4,16 +4,16 @@ class Base_Controller extends CI_Controller
 {
     protected $data;
     protected static $CI;
-
+    
     function __construct()
     {
         parent::__construct();
         self::$CI = &get_instance();
-
+        
         $this->data = array();
         $this->data['controller'] = '';
         $this->data['action'] = '';
-
+        
         $this->data['base_url'] = base_url();
         $this->data['img_path'] = base_url('www/img');
         $this->data['css_path'] = base_url('www/css');
