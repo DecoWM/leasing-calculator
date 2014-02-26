@@ -29,7 +29,7 @@ class Application
 		$tasaImpuestoRenta,
 		$tasaRecompra,
 		$gastosIniciales,
-		$GastosPeriodicos,
+		$gastosPeriodicos,
 		$tasaCOK,
 		$tasaWACC
 	)

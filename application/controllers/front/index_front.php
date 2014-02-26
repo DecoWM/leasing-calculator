@@ -7,7 +7,7 @@ class Index_front extends Front_Controller
 		$this->data['active'] = 'data';
 
 		$this->load->view('front/common/header', $this->data);
-		$this->load->view('front/data_form', $this->data);
+		$this->load->view('front/data', $this->data);
 		$this->load->view('front/common/footer', $this->data);
 	}
 

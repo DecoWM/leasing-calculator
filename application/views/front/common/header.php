@@ -18,15 +18,16 @@
 
 <div class="container" >
 
-    <div class="masthead">
-        <div class="row-fluid">
-            <h3 class="muted span4"><a href="<?php echo base_url() ?>">Leasing Calculator</a></h3>
-            <div class="span4 offset4" style="text-align: right; margin-top: 15px">
-                <?php if(!isset($logout)): ?>
-                <a class="btn btn-danger" href="<?php echo base_url('auth/logout') ?>">Salir</a>
-                <?php endif; ?>
-            </div>
+    <div class="masthead row">
+        <h3 class="muted col-md-4"><a href="<?php echo base_url() ?>">Leasing Calculator</a></h3>
+        <div class="col-md-3 col-md-offset-5" style="text-align: right; margin-top: 15px">
+            <?php if(!isset($logout)): ?>
+            <a class="btn btn-danger" href="<?php echo base_url('auth/logout') ?>">Salir</a>
+            <?php endif; ?>
         </div>
-        <?php $this->load->view('front/common/navbar') ?>
-        <?php $this->load->view('front/common/alerts') ?>
     </div>
+
+    <?php $this->load->view('front/common/navbar') ?>
+    <?php $this->load->view('front/common/alerts') ?>
+
+    <div class="content row">
