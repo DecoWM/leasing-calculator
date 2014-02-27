@@ -64,3 +64,16 @@ table .btn {
 .table .yello td {
     background:rgb(245, 245, 174) !important;
 }
+.section {
+    display: inline-block;
+    min-height: 400px;
+}
+.section.last{
+    min-height: 630px;
+}
+.nav-wrapper{
+    position: fixed;
+}
+#table{
+    overflow: scroll;
+}

@@ -1362,7 +1362,7 @@ class Financial
 	 *  4 European 30/360
 	 *
 	 */
-	function YIELD($settlement, $maturity, $rate, $pr, $redemption, $frequency, $basis = FINANCIAL_BASIS_MSRB_30_360)
+	function _YIELD($settlement, $maturity, $rate, $pr, $redemption, $frequency, $basis = FINANCIAL_BASIS_MSRB_30_360)
 	{
 		if (!$this->_is_valid_basis($basis)) return null;
 		if (!$this->_is_valid_frequency($frequency)) return null;

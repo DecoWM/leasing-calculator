@@ -1,4 +1,4 @@
-<div id="initial_cost" style="display:inline-block">
+<div id="initial_cost" class="section col-md-12">
 
 	<!-- Subtitle -->
 	<h2 class="sub-header">Costos Iniciales</h2>
@@ -56,3 +56,5 @@
 	</div>
 
 </div>
+
+<hr>

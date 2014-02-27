@@ -1,4 +1,4 @@
-<div id="initial_data" style="display:inline-block">
+<div id="initial_data" class="section col-md-12">
 
 	<!-- Subtitle -->
 	<h2 class="sub-header">Datos Iniciales</h2>
@@ -75,4 +75,16 @@
 	    </div>
 	</div>
 
+	<!-- Periodos de Gracia Total -->
+	<div class="form-group col-md-5 <?php if(form_error('periodosGraciaTotal')) echo 'has-error' ?>">
+	    <label class="col-md-4 control-label">Periodos de Gracia Total</label>
+	    <div class="col-md-7">
+	      	<input type="text" class="form-control" placeholder="Periodos de Gracia Total" name="periodosGraciaTotal"
+	      		value="<?php echo set_value('periodosGraciaTotal') ?>" required="">
+	        <span class="help-block"><?php echo strip_tags(form_error('periodosGraciaTotal')) ?></span>
+	    </div>
+	</div>
+
 </div>
+
+<hr>

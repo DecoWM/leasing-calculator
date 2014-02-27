@@ -2,7 +2,7 @@
     <?php $this->load->view('front/results_navbar') ?>
 </div>
 
-<div class="col-md-8 main">
+<div class="col-md-10 main">
     <?php $this->load->view('front/results_totals') ?>
     <?php $this->load->view('front/results_indicators') ?>
     <?php $this->load->view('front/results_table') ?>

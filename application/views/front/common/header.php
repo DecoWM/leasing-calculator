@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="<?php echo $css_path ?>/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="<?php echo $css_path ?>/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="<?php echo $css_path ?>/bootstrap-fileupload.min.css" rel="stylesheet">
-    <link href="<?php echo $css_path ?>/data-tables.css" rel="stylesheet">
     <link href="<?php echo $css_path ?>/front.css" rel="stylesheet">
     
     <script>
